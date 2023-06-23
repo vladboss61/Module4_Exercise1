@@ -1,0 +1,33 @@
+#unique-1 {
+    background-color: black;
+}
+
+.cls-1 {
+    background-color: brown;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    background-color: aquamarine;
+}
+
+span {
+    background-color: #FFFFFF;
+}
+
+#box {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin: 10px;
+    padding: 50px;
+}
+
+.cls-2 {
+    border: 1px solid black;
+    padding: 20px;
+}
