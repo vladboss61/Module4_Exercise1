@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Module5_Exercise1.DogsApiExample.Models;
+namespace Module4_Exercise1.DogsApiExample.Models;
 
 internal sealed class DogResponse
 {

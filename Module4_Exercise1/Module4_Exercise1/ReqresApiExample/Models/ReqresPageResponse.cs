@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace Module5_Exercise1.ReqresApiExample.Models;
+namespace Module4_Exercise1.ReqresApiExample.Models;
 
-internal sealed class ReqresPageRequest
+internal sealed class ReqresPageResponse
 {
     public int Page { get; set; }
 
@@ -14,7 +15,7 @@ internal sealed class ReqresPageRequest
     [JsonProperty("total_pages")]
     public int TotalPages { get; set; }
 
-    public ReqresUser[] Data { get; set; }
+    public ICollection<ReqresUserRequest> Data { get; set; }
 
     public override string ToString()
     {

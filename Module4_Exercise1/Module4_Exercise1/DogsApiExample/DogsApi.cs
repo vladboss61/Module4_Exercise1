@@ -3,11 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Module5_Exercise1.DogsApiExample.Models;
+using Module4_Exercise1.DogsApiExample.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-namespace Module5_Exercise1.DogsApiExample;
+namespace Module4_Exercise1.DogsApiExample;
 
 internal static class DogsApi
 {
@@ -21,7 +22,14 @@ internal static class DogsApi
         if (dogResponseMessage.StatusCode == HttpStatusCode.OK)
         {
             string dogString = await dogResponseMessage.Content.ReadAsStringAsync();
-            DogResponse dogResponse = JsonSerializer.Deserialize<DogResponse>(dogString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            DogResponse dogResponse = JsonConvert.DeserializeObject<DogResponse>(dogString, new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+            });
 
             Console.WriteLine(dogResponse.ToString());
 

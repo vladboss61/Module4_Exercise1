@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Module5_Exercise1.ReqresApiExample.Models;
+namespace Module4_Exercise1.ReqresApiExample.Models;
 
-internal sealed class ReqresUser
+internal sealed class ReqresUserRequest
 {
     public int Id { get; set; }
 

@@ -4,9 +4,10 @@ using System.Net.Http;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Module5_Exercise1.ReqresApiExample.Models;
+using Module4_Exercise1.ReqresApiExample.Models;
+using Newtonsoft.Json.Serialization;
 
-namespace Module5_Exercise1.ReqresApiExample;
+namespace Module4_Exercise1.ReqresApiExample;
 
 internal static class ReqresApi
 {
@@ -17,14 +18,14 @@ internal static class ReqresApi
         using var client = new HttpClient();
         client.BaseAddress = new Uri(RequesURL);
 
-        HttpResponseMessage result = await client.GetAsync("api/users?page=2");
+        HttpResponseMessage result = await client.GetAsync("api/users?page=2"); // https://reqres.in/api/users?page=2
 
         if (result.StatusCode == HttpStatusCode.OK)
         {
             Console.WriteLine("Ok Code from reqres site.");
             string content = await result.Content.ReadAsStringAsync();
             Console.WriteLine(content);
-            ReqresPageRequest pageRequest = JsonConvert.DeserializeObject<ReqresPageRequest>(content);
+            ReqresPageResponse pageRequest = JsonConvert.DeserializeObject<ReqresPageResponse>(content);
 
             if (pageRequest is not null)
             {
@@ -44,7 +45,14 @@ internal static class ReqresApi
             Job = "Software Engineer"
         };
 
-        string serializedUser = JsonConvert.SerializeObject(userParametersRequest);
+        string serializedUser = JsonConvert.SerializeObject(userParametersRequest, new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            }
+        });
+
         var stringContent = new StringContent(serializedUser, Encoding.Unicode, "application/json"); // application/json - required.
 
         HttpResponseMessage result = await client.PostAsync("api/users", stringContent);
